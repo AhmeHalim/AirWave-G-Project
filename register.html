@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+    <title>  Cloud Sound System</title>
+	<link rel="icon" 
+      type="image/png" 
+      href="assets/img/logo.png">
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <!--external css-->
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css"  />
+        
+    <!-- Custom styles for this template -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/style-responsive.css" rel="stylesheet">
+		
+		<script>
+			
+			window.addEventListener("load",connectToHtml);
+			function connectToHtml()
+			{
+
+				
+				form=document.getElementById("submitButton");
+				form.addEventListener("click",submitFunction);
+				
+			}
+			
+			function submitFunction()
+			{
+				fname=document.getElementById("F.Name").value;
+				lname=document.getElementById("L.Name").value;
+				email=document.getElementById("Email").value;
+				counrty=document.getElementById("Counrty").value;
+				city=document.getElementById("City").value;
+				date=document.getElementById("b.Date").value;
+				gender=document.getElementById("Gender").value;
+				pass=document.getElementById("Password").value;
+				//window.alert(fname);
+				request=new XMLHttpRequest();
+				url="backend/register.php";
+				prms="fname="+fname+"&lname="+lname+"&Email="+email+"&Counrty="+counrty+"&City="+city+"&BirthDate="+date+"&Gender="+gender+"&pass="+pass;
+				request.open("POST",url,true);
+				request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				var resp;
+				request.onreadystatechange=function()
+				{
+					if(request.readyState==4 && request.status==200 )
+					{
+						var resp = String(request.responseText);
+						//window.alert(request.responseText);
+
+						if (resp.trim() == "True")
+						{
+							//window.alert("test");
+							window.location = "login.php";
+						}
+						else
+						{
+							//window.alert("failed");
+							err=document.getElementById("diverr");
+							err.setAttribute("style","display:block");
+							err.innerHTML = resp;
+							
+						}
+					}
+					else
+					{
+						
+					}
+				}
+				request.send(prms);
+				
+			}
+	</script>
+		
+</head>
+
+  <body>
+
+      <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+
+	  <div id="login-page">
+	  	<div class="container">
+	  	
+		      <form class="form-login" method="POST" id="register">
+		        <h2 class="form-login-heading">Create new account</h2>
+		        <div class="login-wrap">
+				<div id="diverr" class="alert alert-danger" style="display:none;">
+					
+						
+
+				</div>
+				<div class="input-group ">
+				<span class="input-group-addon"><i class="fa fa-user"></i></span>
+				<div >
+		           	<input type="text" class="form-control" placeholder="First Name" name="F.Name" id="F.Name" autofocus required pattern="[A-Za-z ]{3,}" title=" At Least 3 Characters.">
+					
+				</div>	 
+					 </div>
+					 <br>
+					 <div class="input-group ">
+				<span class="input-group-addon "><i class="fa fa-users"></i></span>
+				<div >
+		           	<input type="text" class="form-control" placeholder="Last Name" required name="L.Name" id="L.Name" pattern="[A-Za-z ]{3,}" title=" At Least 3 Characters.">
+				</div>	 
+					 </div>
+					 </br>
+					
+					<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>	
+					<input type="text" class="form-control" placeholder="Email Address" name="Email" id="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title=" Invalid.">		
+					 </div>
+					 </br>
+					 
+					 <div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+					<input type="text" class="form-control" placeholder="Country" name="Counrty" id="Counrty" required pattern="[A-Za-z ]{3,}" title=" Invalid.">
+					 </div>
+					 </br>
+					 
+					 <div class="input-group">
+				<span class="input-group-addon"><i class=" 	fa fa-map-marker"></i></span>
+					 <input type="text" class="form-control" placeholder="City" name="City" id="City" required pattern="[A-Za-z ]{3,}" title=" Invalid.">
+					 </div>
+					 </br>
+					 
+					 <div class="input-group date" data-provide="datepicker">
+				<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					 <input type="date" name="b.Date" id="b.Date" class="form-control" required>
+					 </div>
+					 </br>
+					 
+				<div class="input-group">
+				<span class="input-group-addon"><i class=" 	fa fa-venus-mars"></i></span>					 
+					  <select name="Gender" id="Gender" class="form-control" placeholder="Gender">
+						<option value="Male" >Gender</option>				
+						<option value="Male" >Male</option>
+							<option value="Female">Female</option>
+							</select>
+				</div>	 
+					 
+					 </br>
+					 
+					 <div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+					<input type="password" class="form-control" placeholder="Password" id="Password" name="Password" required pattern="[A-Za-z ]{6,}" title=" At Least 6 Characters.">
+					</div>
+					</br>
+					
+					<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-check"></i></span>
+					<input type="password" class="form-control" placeholder="Confirm Password" name="Cpassword" id="Cpassword" required pattern="[A-Za-z ]{6,}" title=" Not Matched.">
+					</div>
+					</br>
+					
+
+					</br>
+										
+		            <button class="btn btn-theme btn-block" type="button" id="submitButton"> SUBMIT</button>
+					
+					<hr>
+		            <div class="registration">
+		                <a class="" href="login.html">
+		                    Already have account?
+		                </a>
+		            </div>
+					
+		        </div>
+		
+		          
+		      </form>	  	
+	  	
+	  	</div>
+	  </div>
+
+	 
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <!--BACKSTRETCH-->
+    <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+    <script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
+    <script>
+        $.backstretch("assets/img/login-bg.jpg", {speed: 500});
+    </script>
+
+
+  </body>
+</html>
